@@ -1,0 +1,4 @@
+{
+  "java.format.settings.url": "https://raw.githubusercontent.com/it-at-m/itm-java-codeformat/main/formatter/src/main/resources/itm-java-codeformat/java_codestyle_formatter.xml",
+  "java.configuration.updateBuildConfiguration": "interactive"
+}

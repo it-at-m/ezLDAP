@@ -1,0 +1,131 @@
+attributetype ( 1.3.6.1.4.1.24376.1.102 NAME 'lhmOrgaMail'
+	DESC 'Wollmux LHM LDAP attribute type'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.106 NAME 'lhmOberOrga'
+	DESC 'Jumper Server User'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.11 NAME 'lhmFax'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.16 NAME 'lhmTitle'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.17 NAME 'lhmOUShortname'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.2 NAME 'lhmFunctionalTitle'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{64}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.22 NAME 'lhmRankInOu'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.23 NAME 'lhmRankInOuFunction'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.27 NAME 'lhmOULongname'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.29 NAME 'lhmOUKey'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{9}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.31 NAME 'lhmOU2ndManager'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.32 NAME 'lhmObjectID'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.33 NAME 'lhmOUManager'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.34 NAME 'lhmOUManager2'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.35 NAME 'lhmOU2ndManager2'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.42 NAME 'lhmWorkHours'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.5 NAME 'lhmOfficePostalCode'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{40}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.6 NAME 'lhmOfficeStreetAddress'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.7 NAME 'lhmOfficeLocalityName'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.86 NAME 'lhmReferatName'
+	DESC 'Name der Dienststelle'
+	EQUALITY caseIgnoreMatch
+	SUBSTR caseIgnoreSubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.97 NAME 'lhmObjectPath'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.98 NAME 'lhmObjectReference'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{15}
+	SINGLE-VALUE
+	USAGE userApplications )
+objectclass ( 1.3.6.1.4.1.24376.2.2 NAME 'lhmPerson'
+	SUP top
+	AUXILIARY
+	MAY ( lhmOberOrga $ lhmOrgaMail $ mail $ personalTitle $ lhmFunctionalTitle $ lhmOfficePostalCode $ lhmOfficeStreetAddress $ lhmOfficeLocalityName $ lhmFax $ lhmTitle $ lhmRankInOu $ lhmRankInOuFunction $ lhmWorkHours $ o $ ou $ employeeNumber $ lhmReferatName ) )
+objectclass ( 1.3.6.1.4.1.24376.2.5 NAME 'lhmOrganizationalUnit'
+	SUP top
+	AUXILIARY
+	MAY ( uid $ mail $ manager $ secretary $ lhmOfficePostalCode $ lhmOfficeStreetAddress $ lhmOfficeLocalityName $ lhmFax $ lhmOUShortname $ lhmRankInOu $ lhmRankInOuFunction $ lhmOULongname $ lhmOUKey $ lhmOU2ndManager $ lhmOUManager $ lhmOUManager2 $ lhmOU2ndManager2 $ lhmWorkHours $  cn $ sn $ o $ lhmReferatName ) )
+objectclass ( 1.3.6.1.4.1.24376.2.7 NAME 'lhmObject'
+	SUP top
+	AUXILIARY
+	MAY ( lhmOUShortname $ lhmOULongname $ lhmObjectID $ lhmObjectPath $ lhmObjectReference ) )
