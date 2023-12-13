@@ -1,0 +1,17 @@
+ezldap:
+  cors:
+    enabled: true
+    allowed-origin-patterns:
+      - https://*.example.org:[*]
+      - http://localhost:[*]
+  cache:
+    enabled: false
+
+app:
+  auth-mode: none
+
+logging:
+  level:
+    "[de.muenchen.itm]": DEBUG
+    "[org.springframework.security]": DEBUG
+

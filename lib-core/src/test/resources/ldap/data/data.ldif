@@ -1,0 +1,211 @@
+# User Base
+dn: o=users,{{ LDAP_BASE_DN }}
+objectClass: lhmObject
+objectClass: organization
+objectClass: top
+o: users
+lhmObjectID: 33000
+
+# OU Base
+dn: o=oubase,{{ LDAP_BASE_DN }}
+objectClass: lhmObject
+objectClass: lhmOrganizationalUnit
+objectClass: organization
+objectClass: top
+o: oubase
+l: München
+lhmAbrechnungKommD: OU_LHM
+lhmObjectID: 342
+lhmOfficeLocalityName: Marienplatz 8
+lhmOfficePostalCode: 80331
+lhmOUShortname: lhm
+postalCode: 80331
+street: Marienplatz 8
+telephoneNumber: 233-00
+
+# Dummy-OU
+# ou=Referat für Bildung und Sport,o=oubase,c=de
+dn: ou=Referat für Bildung und Sport,o=oubase,{{ LDAP_BASE_DN }}
+objectClass: lhmObject
+objectClass: lhmOrganizationalUnit
+objectClass: organizationalUnit
+objectClass: top
+lhmObjectID: 30001
+ou: Referat für Bildung und Sport
+lhmOUShortname: RBS
+lhmRankInOu: 40
+
+# Dummy-OU2
+dn: ou=Abteilung 1,ou=Referat für Bildung und Sport,o=oubase,{{ LDAP_BASE_DN }}
+objectClass: lhmObject
+objectClass: lhmOrganizationalUnit
+objectClass: organizationalUnit
+objectClass: top
+lhmObjectID: 30002
+ou: Abteilung 1
+mail: rbs.a1@{{ LDAP_DOMAIN }}
+lhmOUShortname: RBS-A-1
+lhmOU2ndManager: petra.mustermann
+lhmOUManager: maxi.mustermann
+lhmRankInOu: 41
+
+# Dummy-OU
+dn: ou=Abteilung 2,ou=Referat für Bildung und Sport,o=oubase,{{ LDAP_BASE_DN }}
+objectClass: lhmObject
+objectClass: lhmOrganizationalUnit
+objectClass: organizationalUnit
+objectClass: top
+lhmObjectID: 30003
+ou: Abteilung 2
+lhmOUKey: 09707139
+mail: rbs.a2@{{ LDAP_DOMAIN }}
+facsimileTelephoneNumber: 123123
+lhmOUShortname: RBS-A-2
+lhmOULongname: Referat, Abteilung 2
+lhmRankInOu: 42
+
+# Maxi Mustermann
+# Leitung Haus für Kinder Josef-Felder-Str. 43a (lhmOUManager bei OU)
+dn: cn=Maxi Mustermann,o=users,{{ LDAP_BASE_DN }}
+objectClass: inetOrgPerson
+objectClass: lhmObject
+objectClass: lhmPerson
+objectClass: person
+objectClass: top
+cn: Maxi Mustermann
+lhmObjectID: 20011
+uid: maxi.mustermann
+l: München
+lhmFax: 321321
+lhmTitle: Herr
+mail: maxi.mustermann@{{ LDAP_DOMAIN }}
+ou: rbs
+roomNumber: 1
+telephoneNumber: 123123
+title: Dr.
+sn: Person
+lhmOfficePostalCode: 80000
+lhmOfficeStreetAddress: Teststr. 11
+
+# Petra Mustermann
+# Stvt Haus für Kinder Josef-Felder-Str. 43a (lhmOU2ndManager bei OU)
+dn: cn=Petra Mustermann,o=users,{{ LDAP_BASE_DN }}
+objectClass: inetOrgPerson
+objectClass: lhmObject
+objectClass: lhmPerson
+objectClass: person
+objectClass: top
+cn: Petra Mustermann
+lhmObjectID: 20012
+uid: petra.mustermann
+l: München
+lhmFax: 321321
+lhmTitle: Herr
+mail: petra.mustermann@{{ LDAP_DOMAIN }}
+ou: rbs
+roomNumber: 1
+telephoneNumber: 123123
+title: Dr.
+sn: Person
+lhmOfficePostalCode: 80000
+lhmOfficeStreetAddress: Teststr. 11
+
+# Peter Lustig
+# Leitung Abteilung 2 via lhmRankInOu 01 und lhmObjectReference
+dn: cn=Peter Lustig,o=users,{{ LDAP_BASE_DN }}
+objectClass: inetOrgPerson
+objectClass: lhmObject
+objectClass: lhmPerson
+objectClass: person
+objectClass: top
+cn: Peter Lustig
+lhmObjectID: 20013
+uid: peter.lustig
+l: München
+lhmFax: 321321
+lhmTitle: Herr
+mail: peter.lustig@{{ LDAP_DOMAIN }}
+ou: rbs
+roomNumber: 1
+telephoneNumber: 123123
+title: Dr.
+sn: Person
+lhmOfficePostalCode: 80000
+lhmOfficeStreetAddress: Teststr. 11
+lhmObjectReference: 30003
+lhmRankInOu: 01
+
+# Petra Lustig
+# Stvt Abteilung 2 via lhmRankInOu 03 und lhmObjectReference
+dn: cn=Petra Lustig,o=users,{{ LDAP_BASE_DN }}
+objectClass: inetOrgPerson
+objectClass: lhmObject
+objectClass: lhmPerson
+objectClass: person
+objectClass: top
+cn: Petra Lustig
+lhmObjectID: 20014
+uid: petra.lustig
+l: München
+lhmFax: 321321
+lhmTitle: Herr
+mail: petra.lustig@{{ LDAP_DOMAIN }}
+ou: rbs
+roomNumber: 1
+telephoneNumber: 123123
+title: Dr.
+sn: Person
+lhmOfficePostalCode: 80000
+lhmOfficeStreetAddress: Teststr. 11
+lhmObjectReference: 30003
+lhmRankInOu: 03
+
+# John Doe
+dn: cn=John Doe,o=users,{{ LDAP_BASE_DN }}
+objectClass: inetOrgPerson
+objectClass: lhmObject
+objectClass: lhmPerson
+objectClass: person
+objectClass: top
+cn: John Doe
+lhmObjectID: 99999
+uid: john.doe
+l: München
+lhmFax: 321321
+lhmTitle: Herr
+mail: john.doe@{{ LDAP_DOMAIN }}
+ou: rbs
+roomNumber: 1
+telephoneNumber: 123123
+title: Dr.
+sn: Person
+lhmOfficePostalCode: 80000
+lhmOfficeStreetAddress: Teststr. 11
+lhmObjectPath: ou=Abteilung 1,ou=Referat für Bildung und Sport,o=oubase,{{ LDAP_BASE_DN }}
+
+
+# ou tree search query results
+dn: cn=rbs,o=users,{{ LDAP_BASE_DN }}
+uniqueMember: uid=john.doe,ou=users,{{ LDAP_BASE_DN }}
+cn: rbs
+lhmObjectReference: 30001
+lhmObjectID: 111111111
+objectClass: lhmObject
+objectClass: groupOfUniqueNames
+objectClass: top
+description: Automatische Gruppe
+lhmObjectPath: ou=Referat für Bildung und Sport,o=oubase,{{ LDAP_BASE_DN }}
+
+# ou tree search query results
+dn: cn=rbs-a-1,o=users,{{ LDAP_BASE_DN }}
+uniqueMember: uid=john.doe,ou=users,{{ LDAP_BASE_DN }}
+cn: rbs-a-1
+lhmObjectReference: 30002
+lhmObjectID: 111111112
+objectClass: lhmObject
+objectClass: groupOfUniqueNames
+objectClass: top
+description: Automatische Gruppe
+lhmObjectPath: ou=Abteilung 1,ou=Referat für Bildung und Sport,o=oubase,{{ LDAP_BASE_DN }}
+
+

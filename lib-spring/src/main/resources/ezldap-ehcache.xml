@@ -1,0 +1,35 @@
+<!-- Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik 
+	der Landeshauptstadt München, 2022 -->
+<config xmlns='http://www.ehcache.org/v3'
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+	xsi:schemaLocation="http://www.ehcache.org/v3 https://www.ehcache.org/schema/ehcache-core-3.0.xsd
+							http://www.ehcache.org/v3/jsr107 https://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+
+	<persistence directory="${ezldap.cache.disk.dir}" />
+
+	<cache-template name="cacheTemplate">
+		<expiry>
+			<ttl unit="minutes">60</ttl>
+		</expiry>
+		<resources>
+			<heap unit="entries">400</heap>
+			<disk unit="MB" persistent="true">512</disk>
+		</resources>
+		<jsr107:mbeans enable-statistics="true" />
+	</cache-template>
+
+	<cache alias="usersByLhmObjectId" uses-template="cacheTemplate" />
+	<cache alias="usersByUid" uses-template="cacheTemplate" />
+	<cache alias="usersByUidSearch" uses-template="cacheTemplate">
+		<expiry>
+			<ttl unit="minutes">10</ttl>
+		</expiry>
+	</cache>
+	<cache alias="ousByLhmObjectId" uses-template="cacheTemplate" />
+	<cache alias="ousByOuShortcode" uses-template="cacheTemplate" />
+	<cache alias="usersByOuShortcode" uses-template="cacheTemplate" />
+	<cache alias="ouTreeByOuShortcode" uses-template="cacheTemplate" />
+	<cache alias="ouTreeByUserId" uses-template="cacheTemplate" />
+
+</config>

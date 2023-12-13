@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: ezLDAP-microservice
+  profiles:
+    active: local
+
+
+springdoc:
+  api-docs:
+    path: "/openapi/v3/api-docs"
+    
+server:
+  error:
+    include-exception: false
+    include-binding-errors: never
+    include-stacktrace: never
+    include-message: never
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+logging:
+  level:
+    "[de.muenchen.itm]": DEBUG
+    "[org.springframework.security]": DEBUG
+
+server:
+  port: 8080
+---
+# OpenShift specific runtime settings
+spring:
+  config:
+    activate:
+      on-profile: openshift
+  main:
+    # disable Spring Boot banner log
+    banner-mode: "OFF"
+
+server:
+  port: 8080
+  shutdown: graceful
+  tomcat:
+    mbeanregistry:
+      enabled: true

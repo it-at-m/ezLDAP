@@ -1,0 +1,607 @@
+attributetype ( 1.3.6.1.4.1.24376.1.10 NAME 'lhmNewsRelatedOU'
+	EQUALITY 2.5.13.1
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.100 NAME 'lhmOrgaTelephoneNumber'
+	DESC 'Wollmux LHM LDAP attribute type'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.50
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.101 NAME 'lhmOrgaFacsimileTelephoneNumber'
+	DESC 'Wollmux LHM LDAP attribute type'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.50
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.102 NAME 'lhmOrgaMail'
+	DESC 'Wollmux LHM LDAP attribute type'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.103 NAME 'lhmRasUser'
+	DESC 'Remote Access Attribute'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.104 NAME 'lhmRasLevel'
+	DESC 'Remote Access Level User'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.105 NAME 'lhmJumperAdmin'
+	DESC 'Jumper Server User'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.106 NAME 'lhmOberOrga'
+	DESC 'Jumper Server User'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.107 NAME 'lhmOrgaWorkHours'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.108 NAME 'lhmTempKolabEnabled'
+	DESC 'Kolab Enabled Object'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.109 NAME 'lhmKolabResourceType'
+	DESC 'Kolab Resource Type'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.11 NAME 'lhmFax'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.110 NAME 'lhmKolabResourceCapacity'
+	DESC 'Kolab Resource Capacity'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.111 NAME 'lhmKolabResourceComment'
+	DESC 'Kolab Resource Comment'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.112 NAME 'lhmKolabDistributionListType'
+	DESC 'Kolab Distributionlist Type'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.113 NAME 'lhmAppManagingOu'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.114 NAME 'lhmAppManager'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.115 NAME 'lhmAppControl'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.116 NAME 'lhmAppAttributeSet'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.117 NAME ( 'lhmExternCreatedBy' 'lhmExtCreatedBy' )
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.118 NAME 'lhmDeletedDate'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.24
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.119 NAME 'lhmExternStatus'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.12 NAME 'lhmNewsRelatedCN'
+	EQUALITY 2.5.13.1
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.120 NAME 'lhmExternalApplication'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.121 NAME 'lhmExternalApplicationRemoved'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.122 NAME 'lhmExternalApplicationAdded'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.123 NAME 'lhmExternDeletionNotified'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.124 NAME 'lhmExternalUid'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.125 NAME 'lhmAppTrigger'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.126 NAME 'lhmIsShadowOU'
+	DESC 'Shadow OU Tag'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.129 NAME 'lhmKolabResourceContactMail'
+	DESC 'Kolab contact mail address'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.13 NAME 'lhmNewsRelatedGroup'
+	EQUALITY 2.5.13.1
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.130 NAME 'lhmTempKolabSwitchMailserver'
+	DESC 'Kolab temp attr for mailserver switching in postfix'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.131 NAME 'lhmMailboxOwner'
+	DESC 'Kolab groupfolder owner'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.133 NAME 'lhmSAPUserId'
+	DESC 'SAP User ID'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{13}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.134 NAME 'lhmSAPOrgId'
+	DESC 'SAP User ID'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.137 NAME 'lhmPrivateMail'
+	DESC 'Private E-Mail-Adresse'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.138 NAME 'lhmPwdNoCrossCheck'
+	DESC 'Ausstellen des Pwd-Checks intern-extern'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.139 NAME 'lhmRsaTokenID'
+	DESC 'RSA-Tokens eines Benutzers'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.14 NAME 'lhmNewsRelatedFilter'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.154 NAME 'lhmClientAdmin'
+	DESC 'comma seperated list of referat shortnames for permit'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.155 NAME 'lhmPziUser'
+	DESC 'Flag fuer PZIs'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.16 NAME 'lhmTitle'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.160 NAME 'lhmExtSSOMemberOf'
+	DESC 'DN einer SSO-Rolle'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.162 NAME 'lhmExtAccountEnabled'
+	DESC 'Account in LDAP-Ext View sichtbar'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.163 NAME 'lhmExtAccountLocked'
+	DESC 'Meta-Attribut fuer Sperren des externen Passworts'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.17 NAME 'lhmOUShortname'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.18 NAME 'lhmMailAlias'
+	EQUALITY 1.3.6.1.4.1.1466.109.114.2
+	SUBSTR 1.3.6.1.4.1.1466.109.114.3
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{1024}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.19 NAME 'lhmResource'
+	EQUALITY 2.5.13.1
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.2 NAME 'lhmFunctionalTitle'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{64}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.20 NAME 'lhmListIntro'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.5{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.21 NAME 'lhmCalUser'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.22 NAME 'lhmRankInOu'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.23 NAME 'lhmRankInOuFunction'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.24 NAME 'lhmPaperFax'
+	EQUALITY 2.5.13.20
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.50{32}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.25 NAME 'lhmFaxUser'
+	EQUALITY 2.5.13.2
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.26 NAME 'lhmFaxSelect'
+	EQUALITY 2.5.13.2
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.27 NAME 'lhmOULongname'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.28 NAME 'lhmTelephoneDisplay'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{19}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.29 NAME 'lhmOUKey'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{9}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.30 NAME 'lhmPersonDeputy'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.31 NAME 'lhmOU2ndManager'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.32 NAME 'lhmObjectID'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.33 NAME 'lhmOUManager'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.34 NAME 'lhmOUManager2'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.35 NAME 'lhmOU2ndManager2'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.38 NAME 'lhmRoleOccupant1ObjectID'
+	DESC 'ObjectID des Rolleninhabers (lfd. Nr. 1)'
+	EQUALITY 2.5.13.14
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{16}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.39 NAME 'lhmRoleOccupant2ObjectID'
+	DESC 'Object ID des Rolleninhabers (lfd. Nr. 2)'
+	EQUALITY 2.5.13.14
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{16}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.4 NAME 'lhmMailboxServer'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.40 NAME 'lhmschNr'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{15}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.41 NAME 'lhmObjectType'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{29}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.42 NAME 'lhmWorkHours'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.43 NAME 'lhmOuMVV'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.44 NAME 'lhmPersonDeputy2'
+	DESC 'Zweite Stellvertretung fuer eine Person'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.45 NAME 'lhmPersonDeputy1OID'
+	DESC 'ObjectID des ersten Stellvertreters einer Person'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.46 NAME 'lhmPersonDeputy2OID'
+	DESC 'Objekt-ID des zweiten Stellvertreters einer Person'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.47 NAME 'lhmOUAddressOID'
+	DESC 'ObjectID der OU der Person (fuer Adressdaten)'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.48 NAME 'lhmMailboxDisable'
+	DESC 'Inaktive Mailbox '
+	EQUALITY 2.5.13.14
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.49 NAME 'lhmSMSUser'
+	DESC 'Zulassung zum SMS-Dienst'
+	EQUALITY 2.5.13.2
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.5 NAME 'lhmOfficePostalCode'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{40}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.50 NAME 'lhmSharedFolder'
+	EQUALITY 1.3.6.1.4.1.1466.109.114.1
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.51 NAME 'lhmAccessSharedFolder'
+	EQUALITY 1.3.6.1.4.1.1466.109.114.1
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.6 NAME 'lhmOfficeStreetAddress'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.69 NAME 'lhmAbrechnungKommD'
+	DESC 'Feld f&uuml;r Kostenstelle/UA bei der Abrechnung der zentralen Kommunikationsdienste'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{50}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.7 NAME 'lhmOfficeLocalityName'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.70 NAME 'lhmMailExtern'
+	DESC 'fuer externe Mailadressen, z.B. ARGE'
+	EQUALITY 2.5.13.2
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.71 NAME 'lhmSMSInAddress'
+	DESC 'fuer eingehende SMS an Mail'
+	EQUALITY 2.5.13.2
+	ORDERING 2.5.13.3
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.74 NAME 'lhmOnlineTelNo'
+	DESC 'keine Anzeige im elektronischen Telefonbuch'
+	EQUALITY 2.5.13.13
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.79 NAME 'lhmDisplayPrintTel'
+	DESC 'Anzeige im Gedruckten Telefonbuch'
+	EQUALITY 2.5.13.13
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.8 NAME 'lhmNewsModerator'
+	EQUALITY 2.5.13.1
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.12{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.80 NAME 'lhmDisplayPrintTelIndex'
+	DESC 'Anzeige im Index des gedruckten Telefonbuchs'
+	EQUALITY 2.5.13.13
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.81 NAME 'lhmDisplayOnlineTel'
+	DESC 'Anzeige im Online-Telefonbuch'
+	EQUALITY 2.5.13.13
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.82 NAME 'lhmPopImap'
+	DESC 'Pop oder IMAP Account (WDA)'
+	EQUALITY caseIgnoreMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.84 NAME 'lhmWDAHistory'
+	DESC 'History der Aenderungen eines Eintrags'
+	EQUALITY caseIgnoreMatch
+	SUBSTR caseIgnoreSubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.85 NAME 'lhmDienststellenName'
+	DESC 'Name der Dienststelle'
+	EQUALITY caseIgnoreMatch
+	SUBSTR caseIgnoreSubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.86 NAME 'lhmReferatName'
+	DESC 'Name der Dienststelle'
+	EQUALITY caseIgnoreMatch
+	SUBSTR caseIgnoreSubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.87 NAME 'lhmCalItemPrefix'
+	DESC 'Defines a prefix for a calendar item'
+	EQUALITY caseIgnoreMatch
+	SUBSTR caseIgnoreSubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{6}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.88 NAME 'lhmUidNumberBase'
+	DESC 'Basis fuer uidNumbers der OU'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{999}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.89 NAME 'lhmListMemberAuto'
+	DESC 'Mitgliedschaft in Verteilern'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7{5}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.9 NAME 'lhmNewsComment'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.90 NAME 'lhmPersnrHCM'
+	DESC 'erweiterte Stammnummer'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.91 NAME 'lhmPolicySubentry'
+	DESC 'Teilbauminfo fuer Passwortpolicy'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.92 NAME 'lhmPwdSyncServer'
+	DESC 'Syncserver'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.93 NAME 'lhmHideMobile'
+	DESC 'Hide Mobilephone Number'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.96 NAME 'lhmSAPrequired'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.97 NAME 'lhmObjectPath'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32767}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.98 NAME 'lhmObjectReference'
+	EQUALITY 2.5.13.2
+	SUBSTR 2.5.13.4
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{15}
+	SINGLE-VALUE
+	USAGE userApplications )
+attributetype ( 1.3.6.1.4.1.24376.1.99 NAME 'lhmADSync'
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+	SINGLE-VALUE
+	USAGE userApplications )
+objectclass ( 1.3.6.1.4.1.24376.2.10 NAME 'lhmSubtreeInfo'
+	SUP top
+	AUXILIARY
+	MAY ( lhmCalItemPrefix $ lhmUidNumberBase $ lhmPolicySubentry $ lhmPwdSyncServer ) )
+objectclass ( 1.3.6.1.4.1.24376.2.12 NAME 'lhmTempKolab'
+	SUP top
+	AUXILIARY
+	MAY ( lhmTempKolabEnabled $ lhmTempKolabSwitchMailserver ) )
+objectclass ( 1.3.6.1.4.1.24376.2.13 NAME 'lhmKolabResource'
+	SUP top
+	AUXILIARY
+	MAY ( lhmKolabResourceType $ lhmKolabResourceCapacity $ lhmKolabResourceComment $ l $ lhmKolabResourceContactMail ) )
+objectclass ( 1.3.6.1.4.1.24376.2.14 NAME 'lhmApplication'
+	SUP top
+	STRUCTURAL
+	MUST ( uid $ cn )
+	MAY ( mail $ displayName $ userPassword $ description $ manager $ ou $ lhmAppManagingOu $ lhmAppManager $ lhmAppControl $ lhmAppAttributeSet $ lhmAppTrigger ) )
+objectclass ( 1.3.6.1.4.1.24376.2.15 NAME 'lhmFremdPerson'
+	SUP top
+	AUXILIARY
+	MAY ( uid $ cn $ lhmExternCreatedBy $ lhmPrivateMail $ lhmExtAccountEnabled $ lhmExtAccountLocked ) )
+objectclass ( 1.3.6.1.4.1.24376.2.16 NAME 'lhmExternBerechtigung'
+	SUP top
+	AUXILIARY
+	MAY ( uid $ cn $ lhmDeletedDate $ lhmExternStatus $ lhmExternalApplication $ lhmExternalApplicationRemoved $ lhmExternalApplicationAdded $ lhmExternDeletionNotified ) )
+objectclass ( 1.3.6.1.4.1.24376.2.17 NAME 'lhmShadowOU'
+	SUP top
+	AUXILIARY
+	MAY lhmIsShadowOU )
+objectclass ( 1.3.6.1.4.1.24376.2.18 NAME 'lhmKolabSharedFolder'
+	SUP top
+	AUXILIARY
+	MAY ( lhmPopImap $ lhmMailboxServer ) )
+objectclass ( 1.3.6.1.4.1.24376.2.19 NAME 'lhmKolabGroupmailbox'
+	SUP top
+	AUXILIARY
+	MAY lhmMailboxOwner )
+objectclass ( 1.3.6.1.4.1.24376.2.2 NAME 'lhmPerson'
+	SUP top
+	AUXILIARY
+	MAY ( lhmOrgaWorkHours $ lhmOberOrga $ lhmOrgaTelephoneNumber $ lhmOrgaFacsimileTelephoneNumber $ lhmOrgaMail $ lhmOuMVV $ mail $ personalTitle $ lhmFunctionalTitle $ lhmMailboxServer $ lhmOfficePostalCode $ lhmOfficeStreetAddress $ lhmOfficeLocalityName $ lhmFax $ lhmTitle $ lhmCalUser $ lhmRankInOu $ lhmRankInOuFunction $ lhmPaperFax $ lhmFaxUser $ lhmFaxSelect $ lhmTelephoneDisplay $ lhmPersonDeputy $ lhmRoleOccupant1ObjectID $ lhmRoleOccupant2ObjectID $ lhmObjectType $ lhmWorkHours $ lhmPersonDeputy2 $ lhmPersonDeputy1OID $ lhmPersonDeputy2OID $ lhmOUAddressOID $ lhmMailboxDisable $ lhmAbrechnungKommD $ lhmMailExtern $ lhmDisplayPrintTel $ lhmDisplayPrintTelIndex $ lhmDisplayOnlineTel $ lhmPopImap $ o $ ou $ employeeNumber $ lhmDienststellenName $ lhmReferatName $ lhmSMSUser $ lhmListMemberAuto $ lhmPersnrHCM $ lhmHideMobile $ lhmSAPrequired $ lhmRasUser $ lhmRasLevel $ lhmJumperAdmin $ lhmExternalUid $ lhmSAPUserId $ lhmPrivateMail $ lhmRsaTokenID $ lhmPziUser $ lhmClientAdmin $ lhmDeletedDate $ lhmExternStatus $ lhmExternalApplication $ lhmExternalApplicationRemoved $ lhmExternalApplicationAdded $ lhmExternDeletionNotified $ lhmExtAccountEnabled $ lhmExtAccountLocked ) )
+objectclass ( 1.3.6.1.4.1.24376.2.20 NAME 'lhmSSORole'
+	DESC 'ObjectClass for RedHat-SSO-Roles'
+	SUP top
+	STRUCTURAL
+	MUST cn
+	MAY ( description $ owner ) )
+objectclass ( 1.3.6.1.4.1.24376.2.4 NAME 'lhmNewsGroup'
+	SUP top
+	STRUCTURAL
+	MUST cn
+	MAY ( lhmNewsModerator $ lhmNewsComment $ lhmNewsRelatedOU $ lhmNewsRelatedCN $ lhmNewsRelatedGroup $ lhmNewsRelatedFilter $ description ) )
+objectclass ( 1.3.6.1.4.1.24376.2.5 NAME 'lhmOrganizationalUnit'
+	SUP top
+	AUXILIARY
+	MAY ( uid $ mail $ manager $ secretary $ lhmMailboxServer $ lhmOfficePostalCode $ lhmOfficeStreetAddress $ lhmOfficeLocalityName $ lhmFax $ lhmNewsRelatedFilter $ lhmOUShortname $ lhmMailAlias $ lhmResource $ lhmCalUser $ lhmRankInOu $ lhmRankInOuFunction $ lhmPaperFax $ lhmFaxUser $ lhmFaxSelect $ lhmOULongname $ lhmOUKey $ lhmOU2ndManager $ lhmOUManager $ lhmOUManager2 $ lhmOU2ndManager2 $ lhmschNr $ lhmWorkHours $ lhmOuMVV $ lhmMailboxDisable $ lhmAbrechnungKommD $ lhmDisplayPrintTel $ lhmDisplayPrintTelIndex $ lhmDisplayOnlineTel $ lhmPopImap $ cn $ sn $ o $ lhmDienststellenName $ lhmReferatName $ lhmListMemberAuto $ lhmADSync $ lhmSAPOrgId $ lhmPwdNoCrossCheck ) )
+objectclass ( 1.3.6.1.4.1.24376.2.7 NAME 'lhmObject'
+	SUP top
+	AUXILIARY
+	MAY ( lhmOUShortname $ lhmOULongname $ lhmObjectID $ lhmObjectPath $ lhmObjectReference $ lhmSharedFolder $ lhmAccessSharedFolder $ lhmWDAHistory ) )
+objectclass ( 1.3.6.1.4.1.24376.2.8 NAME 'lhmRole'
+	SUP top
+	AUXILIARY
+	MAY ( mail $ personalTitle $ lhmFunctionalTitle $ lhmMailboxServer $ lhmOfficePostalCode $ lhmOfficeStreetAddress $ lhmOfficeLocalityName $ lhmFax $ lhmTitle $ lhmCalUser $ lhmRankInOu $ lhmRankInOuFunction $ lhmPaperFax $ lhmFaxUser $ lhmFaxSelect $ lhmTelephoneDisplay $ lhmPersonDeputy $ lhmRoleOccupant1ObjectID $ lhmRoleOccupant2ObjectID $ lhmPersonDeputy2 $ lhmPersonDeputy1OID $ lhmPersonDeputy2OID $ lhmOUAddressOID $ lhmMailboxDisable $ lhmAbrechnungKommD $ o $ ou ) )
+objectclass ( 1.3.6.1.4.1.24376.2.9 NAME 'lhmNoPersonEntry'
+	SUP top
+	AUXILIARY
+	MAY ( mail $ lhmFunctionalTitle $ lhmMailboxServer $ lhmOfficePostalCode $ lhmOfficeStreetAddress $ lhmOfficeLocalityName $ lhmFax $ lhmCalUser $ lhmRankInOu $ lhmRankInOuFunction $ lhmPaperFax $ lhmFaxUser $ lhmFaxSelect $ lhmTelephoneDisplay $ lhmPersonDeputy $ lhmRoleOccupant1ObjectID $ lhmRoleOccupant2ObjectID $ lhmObjectType $ lhmWorkHours $ lhmPersonDeputy2 $ lhmPersonDeputy1OID $ lhmPersonDeputy2OID $ lhmOUAddressOID $ lhmMailboxDisable $ lhmAbrechnungKommD $ lhmMailExtern $ lhmDisplayPrintTel $ lhmDisplayPrintTelIndex $ lhmDisplayOnlineTel $ lhmPopImap $ o $ ou $ lhmDienststellenName $ lhmReferatName $ lhmSMSUser $ lhmListMemberAuto $ givenName $ sn $ cn $ uid $ lhmExternalUid ) )
