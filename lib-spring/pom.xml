@@ -28,7 +28,7 @@
 	<parent>
 		<groupId>de.muenchen.oss.ezldap</groupId>
 		<artifactId>ezLDAP-parent</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>ezLDAP-lib-spring</artifactId>
 	<name>ezLDAP :: lib-spring</name>
