@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Node class in ldap shade tree representation
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

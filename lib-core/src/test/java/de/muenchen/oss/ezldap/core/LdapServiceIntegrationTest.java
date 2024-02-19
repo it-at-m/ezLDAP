@@ -27,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,7 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
 import org.testcontainers.utility.MountableFile;
 
 /**
@@ -197,6 +199,27 @@ public class LdapServiceIntegrationTest {
     void find_ou_tree_by_user_not_found() {
         final Optional<List<String>> result = this.sut.findOuTreeByUserId("00000");
         assertThat(result).isEmpty();
+    }
+
+    @Test
+    void calculate_shade_tree() {
+
+        var shadetree = this.sut.calculateSubtreeWithUsers("o=oubase,dc=example,dc=org", null);
+        var rootNode = shadetree.get().values().iterator().next();
+        Assertions.assertEquals("o=oubase,dc=example,dc=org", rootNode.getDistinguishedName());
+        Assertions.assertEquals("342", rootNode.getNode().getLhmObjectId());
+
+        var rbs = rootNode.getChildNodes().values().iterator().next();
+        Assertions.assertEquals("Referat für Bildung und Sport", rbs.getNode().getOu());
+
+        var departments = rbs.getChildNodes();
+        var abt_1 = departments.get("Abteilung 1");
+        Assertions.assertEquals("ou=Abteilung 1,ou=Referat für Bildung und Sport,o=oubase,dc=example,dc=org", abt_1.getDistinguishedName());
+        Assertions.assertEquals("ou=Abteilung 1,ou=Referat für Bildung und Sport,o=oubase,dc=example,dc=org", abt_1.getUsers().get(0).getLhmObjectPath());
+
+        var logTree = shadetree.get().values().iterator().next().logTree("");
+        Assertions.assertTrue(logTree.contains("***** New LDAP entry : RBS-A-2 Abteilung 2 *****"));
+
     }
 
 }
