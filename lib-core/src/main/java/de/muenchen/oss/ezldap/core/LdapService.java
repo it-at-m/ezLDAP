@@ -167,7 +167,7 @@ public class LdapService {
      * @return die Ergebnisliste oder {@link Optional#empty()}, wenn keine OU zur Kurzbezeichnung
      *         existiert
      */
-    public Optional<List<LdapBaseUserDTO>> findPersonsByOuShortcode(final String ou, final String modifyTimeStamp) {
+    public Optional<List<LdapBaseUserDTO>> findPersonsByOuShortcode(final String ou) {
         log.info("Performing LDAP lookup for persons in ou='{}' ...", ou);
         // check if OU exists before searching for users
         final LdapQuery queryForOu = LdapQueryBuilder.query().base(this.ouSearchBase)
@@ -180,42 +180,14 @@ public class LdapService {
         if (foundOus.isEmpty()) {
             return Optional.empty();
         } else {
-            LdapQuery query = LdapQueryBuilder.query().base(userSearchBase)
+            final LdapQuery query = LdapQueryBuilder.query().base(this.userSearchBase)
                     .searchScope(SearchScope.SUBTREE)
-                    .attributes("*", "modifyTimestamp")
                     .where(ATTRIBUTE_OBJECT_CLASS).is(PERSON)
                     .and(ATTRIBUTE_OBJECT_CLASS).is(LHM_PERSON)
                     .and(ATTRIBUTE_LHM_OBJECT_ID).isPresent() // es gibt Personen ohne lhmObjectId ¯\_(ツ)_/¯
-                    .and(ATTRIBUTE_OU).is(ou)
-                    .and(ATTRIBUTE_MODIFY_TIMESTAMP).gte(modifyTimeStamp);
-            return Optional.of(ldapTemplate.search(query, this.ldapBaseUserAttributesMapper));
+                    .and(ATTRIBUTE_OU).is(ou);
+            return Optional.of(this.ldapTemplate.search(query, this.ldapBaseUserAttributesMapper));
         }
-
-    }
-
-    public Optional<List<LdapBaseUserDTO>> findPersonsByOuPattern(String ouPattern, String modifyTimeStamp) {
-        log.info("Performing LDAP lookup for persons in ou with pattern='{}' ...", ouPattern);
-
-        LdapQuery query;
-        if (modifyTimeStamp != null) {
-            query = LdapQueryBuilder.query().base(userSearchBase)
-                    .searchScope(SearchScope.SUBTREE)
-                    .attributes("*", "modifyTimestamp")
-                    .where(ATTRIBUTE_OBJECT_CLASS).is(PERSON)
-                    .and(ATTRIBUTE_OBJECT_CLASS).is(LHM_PERSON)
-                    .and(ATTRIBUTE_LHM_OBJECT_ID).isPresent() // es gibt Personen ohne lhmObjectId ¯\_(ツ)_/¯
-                    .and(ATTRIBUTE_OU).like(ouPattern)
-                    .and(ATTRIBUTE_MODIFY_TIMESTAMP).gte(modifyTimeStamp);
-        } else {
-            query = LdapQueryBuilder.query().base(userSearchBase)
-                    .searchScope(SearchScope.SUBTREE)
-                    .attributes("*", "modifyTimeStamp")
-                    .where(ATTRIBUTE_OBJECT_CLASS).is(PERSON)
-                    .and(ATTRIBUTE_OBJECT_CLASS).is(LHM_PERSON)
-                    .and(ATTRIBUTE_LHM_OBJECT_ID).isPresent() // es gibt Personen ohne lhmObjectId ¯\_(ツ)_/¯
-                    .and(ATTRIBUTE_OU).like(ouPattern);
-        }
-        return Optional.of(ldapTemplate.search(query, this.ldapBaseUserAttributesMapper));
 
     }
 
@@ -263,33 +235,6 @@ public class LdapService {
             return this.resolveManagersForOu(searchResultDTO);
         } else {
             log.debug("Found no OU with [lhmObjectId={}].", lhmObjectId);
-            return Optional.empty();
-        }
-    }
-
-    public Optional<List<LdapOuSearchResultDTO>> getAllOUs(String filter, int countLimit, String timestamp) {
-        log.info("Searching LDAP for all OUs with filter {}...", filter);
-
-        LdapQuery query;
-        if (timestamp != null) {
-            query = LdapQueryBuilder.query().base(ouSearchBase).countLimit(countLimit).searchScope(SearchScope.SUBTREE)
-                    .attributes("*", "modifyTimestamp")
-                    .where(ATTRIBUTE_OBJECT_CLASS).is(LHM_ORGANIZATIONAL_UNIT)
-                    .and(LHM_OU_SHORTNAME).like(filter)
-                    .and(ATTRIBUTE_MODIFY_TIMESTAMP).gte(timestamp);
-        } else { //TODO geht das auch ohne Duplizierung?
-            query = LdapQueryBuilder.query().base(ouSearchBase).countLimit(countLimit).searchScope(SearchScope.SUBTREE)
-                    .attributes("*", "modifyTimestamp")
-                    .where(ATTRIBUTE_OBJECT_CLASS).is(LHM_ORGANIZATIONAL_UNIT)
-                    .and(LHM_OU_SHORTNAME).like(filter);
-        }
-
-        List<LdapOuSearchResultDTO> searchResults = ldapTemplate.search(query, ldapOuAttributesMapper);
-        if (searchResults.size() >= 1) {
-            log.debug("Found {} OUs.", searchResults.size());
-            return Optional.of(searchResults);
-        } else {
-            log.debug("Found no OUs.");
             return Optional.empty();
         }
     }
@@ -462,7 +407,7 @@ public class LdapService {
                 var node = new LdapOuNode();
                 node.setNode(o);
                 node.setDistinguishedName(dn);
-                parent.getChildNotes().put(o.getOu(), node);
+                parent.getChildNodes().put(o.getOu(), node);
                 addUsers(this.userSearchBase, node, modifyTimeStamp);
                 addSubtree(dn, node, modifyTimeStamp);
             });

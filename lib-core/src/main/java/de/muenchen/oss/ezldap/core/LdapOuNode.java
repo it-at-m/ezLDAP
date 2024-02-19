@@ -39,7 +39,20 @@ public class LdapOuNode {
 
     private String distinguishedName;
     private LdapOuSearchResultDTO node;
-    private Map<String, LdapOuNode> childNotes = new TreeMap<String, LdapOuNode>();
+    private Map<String, LdapOuNode> childNodes = new TreeMap<String, LdapOuNode>();
     private List<LdapUserDTO> users;
+
+    public String toStringTree(String tab) {
+
+        var tree = new StringBuilder();
+        tree.append(tab + getDistinguishedName());
+        tree.append(tab + getNode().toString());
+        getUsers().forEach(u -> tree.append(tab + u.toString()));
+        getChildNodes().forEach((k, v) -> {
+            tree.append(tab + v.toStringTree(tab + "     "));
+        });
+
+        return tree.toString();
+    }
 
 }
