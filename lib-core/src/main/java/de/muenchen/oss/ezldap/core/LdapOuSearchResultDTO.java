@@ -62,6 +62,8 @@ public class LdapOuSearchResultDTO implements Serializable {
     private String telephoneNumber;
     private String facsimileTelephoneNumber;
 
+    private String modifyTimeStamp;
+
     /** Leitung UID */
     @ToString.Include(rank = 90)
     private String lhmOUManager;

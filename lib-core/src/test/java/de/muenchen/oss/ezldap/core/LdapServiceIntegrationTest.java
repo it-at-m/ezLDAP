@@ -143,14 +143,14 @@ public class LdapServiceIntegrationTest {
 
     @Test
     void find_persons_by_ou_shortcode_exists() {
-        final Optional<List<LdapBaseUserDTO>> result = this.sut.findPersonsByOuShortcode("rbs");
+        final Optional<List<LdapBaseUserDTO>> result = this.sut.findPersonsByOuShortcode("rbs", "20200228152151Z");
         assertThat(result).isPresent();
         assertThat(result.get()).extracting("uid").containsExactlyInAnyOrder("maxi.mustermann", "petra.mustermann", "peter.lustig", "petra.lustig", "john.doe");
     }
 
     @Test
     void find_persons_by_ou_shortcode_ou_not_existing() {
-        final Optional<List<LdapBaseUserDTO>> result = this.sut.findPersonsByOuShortcode("hammaned");
+        final Optional<List<LdapBaseUserDTO>> result = this.sut.findPersonsByOuShortcode("hammaned", "20200228152151Z");
         assertThat(result).isEmpty();
     }
 

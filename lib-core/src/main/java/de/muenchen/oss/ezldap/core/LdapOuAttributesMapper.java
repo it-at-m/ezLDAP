@@ -58,6 +58,8 @@ public class LdapOuAttributesMapper implements AttributesMapper<LdapOuSearchResu
         ou.setLhmOUManager(safelyGet("lhmOUManager", attributes));
         ou.setLhmOU2ndManager(safelyGet("lhmOU2ndManager", attributes));
 
+        ou.setModifyTimeStamp(safelyGet("modifyTimestamp", attributes));
+
         log.debug("Mapped ou {}.", ou);
         return ou;
     }

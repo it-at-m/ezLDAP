@@ -49,7 +49,7 @@ public class LdapUserDTO extends LdapBaseUserDTO {
      */
     public LdapUserDTO(LdapBaseUserDTO baseUser) {
         super(baseUser.getLhmObjectId(), baseUser.getUid(), baseUser.getAnrede(), baseUser.getVorname(),
-                baseUser.getNachname(), baseUser.getCn(), baseUser.getOu());
+                baseUser.getNachname(), baseUser.getCn(), baseUser.getOu(), baseUser.getModifyTimeStamp(), baseUser.getLhmObjectReference());
     }
 
     /**

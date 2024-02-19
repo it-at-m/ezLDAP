@@ -52,6 +52,8 @@ public class LdapBaseUserAttributesMapper implements AttributesMapper<LdapBaseUs
         u.setNachname(safelyGet("sn", attributes));
         u.setCn(safelyGet("cn", attributes));
         u.setOu(safelyGet("ou", attributes));
+        u.setModifyTimeStamp(safelyGet("modifyTimestamp", attributes));
+        u.setLhmObjectReference(safelyGet("lhmObjectReference", attributes));
         log.debug("Mapped user {}.", u);
         return u;
     }

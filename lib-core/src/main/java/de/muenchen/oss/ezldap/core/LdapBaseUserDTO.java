@@ -77,4 +77,9 @@ public class LdapBaseUserDTO implements Serializable {
     @ToString.Include(rank = 3)
     private String ou;
 
+    private String modifyTimeStamp;
+
+    @ToString.Include(rank = 4)
+    private String lhmObjectReference;
+
 }
