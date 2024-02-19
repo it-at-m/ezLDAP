@@ -42,14 +42,18 @@ public class LdapOuNode {
     private Map<String, LdapOuNode> childNodes = new TreeMap<String, LdapOuNode>();
     private List<LdapUserDTO> users;
 
-    public String toStringTree(String tab) {
+    public String logTree(String tab) {
 
         var tree = new StringBuilder();
-        tree.append(tab + getDistinguishedName());
-        tree.append(tab + getNode().toString());
-        getUsers().forEach(u -> tree.append(tab + u.toString()));
+        tree.append(tab + "***** New LDAP entry : " + getNode().getLhmOUShortname() + " " + getNode().getOu() + " *****" + System.lineSeparator());
+        tree.append(tab + getDistinguishedName() + System.lineSeparator());
+        tree.append(tab + getNode().toString() + System.lineSeparator());
+
+        if (getUsers() != null)
+            getUsers().forEach(u -> tree.append(tab + u.toString() + System.lineSeparator()));
+
         getChildNodes().forEach((k, v) -> {
-            tree.append(tab + v.toStringTree(tab + "     "));
+            tree.append(v.logTree(tab + "     "));
         });
 
         return tree.toString();
