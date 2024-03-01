@@ -405,7 +405,7 @@ public class LdapService {
             final List<LdapOuSearchResultDTO> searchResults = this.ldapTemplate.search(ouObjectReferenceQuery, this.ldapOuAttributesMapper);
 
             searchResults.forEach(o -> {
-                var dn = String.format("ou=%s,%s", o.getOu(), distinguishedName);
+                var dn = String.format("ou=%s,%s", o.getOu().replace(",", "\\,"), distinguishedName);
                 var node = new LdapOuNode();
                 node.setNode(o);
                 node.setDistinguishedName(dn);
