@@ -22,12 +22,6 @@
  */
 package de.muenchen.oss.ezldap.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,8 +34,12 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
 import org.testcontainers.utility.MountableFile;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integrationtest zu {@link LdapService} mit einem embedded LDAP Server.
@@ -205,6 +203,7 @@ public class LdapServiceIntegrationTest {
     void calculate_shade_tree() {
 
         var shadetree = this.sut.calculateSubtreeWithUsers("o=oubase,dc=example,dc=org", null);
+        Assertions.assertTrue(shadetree.isPresent());
         var rootNode = shadetree.get().values().iterator().next();
         Assertions.assertEquals("o=oubase,dc=example,dc=org", rootNode.getDistinguishedName());
         Assertions.assertEquals("342", rootNode.getNode().getLhmObjectId());
@@ -219,6 +218,26 @@ public class LdapServiceIntegrationTest {
 
         var logTree = shadetree.get().values().iterator().next().logTree("");
         Assertions.assertTrue(logTree.contains("***** New LDAP entry : RBS-A-2 Abteilung 2 *****"));
+    }
+
+    @Test
+    void calculate_shade_tree_select_user_with_modifyTimestamp() {
+
+        var shadetree = this.sut.calculateSubtreeWithUsers("o=oubase,dc=example,dc=org", "20240226083627Z");
+        Assertions.assertTrue(shadetree.isPresent());
+        Assertions.assertEquals(1, shadetree.get().size());
+        var rootNode = shadetree.get().values().iterator().next();
+        Assertions.assertNotNull(rootNode.getNode().getModifyTimeStamp(), "Operational ldap ou attribute modifyTimestamp not selected.");
+        var rbs = rootNode.getChildNodes().values().iterator().next();
+        Assertions.assertEquals(1, rbs.getUsers().size(), "User expected. All users were created after the timestamp");
+        Assertions.assertNotNull(rbs.getUsers().get(0).getModifyTimeStamp(), "Operational ldap user attribute modifyTimestamp not selected.");
+
+        shadetree = this.sut.calculateSubtreeWithUsers("o=oubase,dc=example,dc=org", "30000000000000Z");
+        Assertions.assertTrue(shadetree.isPresent());
+        Assertions.assertEquals(1, shadetree.get().size());
+        rootNode = shadetree.get().values().iterator().next();
+        rbs = rootNode.getChildNodes().values().iterator().next();
+        Assertions.assertEquals(0, rbs.getUsers().size(), "No user expected. The timestamp is too far in the future.");
 
     }
 

@@ -349,7 +349,7 @@ public class LdapService {
      * Calculate ou ldap subtree child entries.
      * Add ou users.
      *
-     * @param distinguishedName
+     * @param distinguishedName Start tree ldap root entry
      * @param modifyTimeStamp Optional ldap search attribute
      * @return OU Tree
      */
@@ -361,6 +361,7 @@ public class LdapService {
             final LdapQuery ouObjectReferenceQuery = query()
                     .searchScope(SearchScope.OBJECT)
                     .base(distinguishedName)
+                    .attributes(ATTRIBUTE_MODIFY_TIMESTAMP, "*")
                     .where(ATTRIBUTE_OBJECT_CLASS).is(LHM_ORGANIZATIONAL_UNIT);
 
             final List<LdapOuSearchResultDTO> searchResults = this.ldapTemplate.search(ouObjectReferenceQuery, this.ldapOuAttributesMapper);
@@ -376,11 +377,11 @@ public class LdapService {
                 searchResults.forEach(o -> addSubtree(distinguishedName, rootNode, modifyTimeStamp));
 
             } else {
-                log.error("Ambiguous DN Entries found : " + distinguishedName);
+                log.error("Ambiguous DN entries found : " + distinguishedName);
             }
 
         } catch (final NameNotFoundException ex) {
-            log.warn("No LDAP Entry found with DN = '{}'. Query failed with exception '{}'", distinguishedName, ex.getClass().getName());
+            log.warn("No LDAP entry found with DN = '{}'. Query failed with exception '{}'", distinguishedName, ex.getClass().getName());
         }
 
         return Optional.of(subtree);
@@ -388,6 +389,7 @@ public class LdapService {
 
     /**
      * Calculate ldap child entries for each parent and concatenate LdapOuNodes.
+     * Build ou tree, filter with modifyTimeStamp user only.
      * Add users to child entries.
      *
      * @param distinguishedName Ldap search base
@@ -398,7 +400,7 @@ public class LdapService {
         try {
 
             log.debug("Searching for dn='{}' & objectClass='{}' ...", distinguishedName, LHM_ORGANIZATIONAL_UNIT);
-            final LdapQuery ouObjectReferenceQuery = getOuObjectReferenceQuery(distinguishedName, modifyTimeStamp);
+            final LdapQuery ouObjectReferenceQuery = getOuObjectReferenceQuery(distinguishedName, null);
 
             final List<LdapOuSearchResultDTO> searchResults = this.ldapTemplate.search(ouObjectReferenceQuery, this.ldapOuAttributesMapper);
 
@@ -427,12 +429,14 @@ public class LdapService {
             return query()
                     .searchScope(SearchScope.ONELEVEL)
                     .base(distinguishedName)
+                    .attributes(ATTRIBUTE_MODIFY_TIMESTAMP, "*")
                     .where(ATTRIBUTE_OBJECT_CLASS).is(LHM_ORGANIZATIONAL_UNIT)
                     .and(ATTRIBUTE_MODIFY_TIMESTAMP).gte(modifyTimeStamp);
         else
             return query()
                     .searchScope(SearchScope.ONELEVEL)
                     .base(distinguishedName)
+                    .attributes(ATTRIBUTE_MODIFY_TIMESTAMP, "*")
                     .where(ATTRIBUTE_OBJECT_CLASS).is(LHM_ORGANIZATIONAL_UNIT);
     }
 
@@ -460,12 +464,14 @@ public class LdapService {
             return query()
                     .searchScope(SearchScope.ONELEVEL)
                     .base(searchBase)
+                    .attributes(ATTRIBUTE_MODIFY_TIMESTAMP, "*")
                     .where(LHM_OBJECT_PATH).is(node.getDistinguishedName())
                     .and(ATTRIBUTE_MODIFY_TIMESTAMP).gte(modifyTimeStamp);
         else
             return query()
                     .searchScope(SearchScope.ONELEVEL)
                     .base(searchBase)
+                    .attributes(ATTRIBUTE_MODIFY_TIMESTAMP, "*")
                     .where(LHM_OBJECT_PATH).is(node.getDistinguishedName());
     }
 

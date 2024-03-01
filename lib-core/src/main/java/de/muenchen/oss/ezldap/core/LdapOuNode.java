@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Node class in ldap shade tree representation
+ * Node class to create ldap shade tree representation
  */
 @Data
 @AllArgsConstructor
