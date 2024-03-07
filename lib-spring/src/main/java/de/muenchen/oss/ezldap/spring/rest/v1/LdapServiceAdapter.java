@@ -77,7 +77,7 @@ public class LdapServiceAdapter {
     }
 
     @Cacheable("usersByOuShortcode")
-    public Optional<List<LdapBaseUserDTO>> findPersonsByOuShortcode(final String ou, String modifyTimeStamp) {
+    public Optional<List<LdapBaseUserDTO>> findPersonsByOuShortcode(final String ou) {
         log.debug("Looking up persons in ou with shortcode '{}' ...", ou);
         return this.ldapService.findPersonsByOuShortcode(ou);
     }

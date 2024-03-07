@@ -181,7 +181,7 @@ public class LdapUserController {
     )
     public ResponseEntity<List<LdapBaseUserDTO>> findByOu(@RequestParam(name = "ou") final String ou,
             @RequestParam(name = "modifyTimeStamp") String modifyTimeStamp) {
-        Optional<List<de.muenchen.oss.ezldap.core.LdapBaseUserDTO>> result = this.ldapService.findPersonsByOuShortcode(ou, modifyTimeStamp);
+        Optional<List<de.muenchen.oss.ezldap.core.LdapBaseUserDTO>> result = this.ldapService.findPersonsByOuShortcode(ou);
         if (result.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
