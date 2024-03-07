@@ -22,7 +22,6 @@
  */
 package de.muenchen.oss.ezldap.core;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -250,29 +249,6 @@ public class LdapServiceIntegrationTest {
         var tree = rootNode.toTree();
         Assertions.assertTrue(tree.contains("***** New LDAP entry : RBS-A-2 Abteilung 2 *****"));
 
-    }
-
-    @Test
-    void shade_tree_json() throws JsonProcessingException {
-
-        var shadetree = this.sut.calculateSubtreeWithUsers("o=oubase,dc=example,dc=org", null);
-        Assertions.assertTrue(shadetree.isPresent());
-        var rootNode = shadetree.get().values().iterator().next();
-
-        var json = rootNode.toJson();
-        Assertions.assertTrue(json.startsWith(
-                "{\"distinguishedName\":\"o=oubase,dc=example,dc=org\",\"node\":{\"lhmObjectId\":\"342\",\"ou\":null,\"lhmOUKey\":null,\"lhmOULongname\":null,\"lhmOUShortname\":\"lhm\",\"postalCode\":\"80331\",\"street\":\"Marienplatz 8\",\"mail\":null,\"telephoneNumber\":\"233-00\",\"facsimileTelephoneNumber\":null,\"modifyTimeStamp"));
-    }
-
-    @Test
-    void shade_tree_flat_map_objectid_user() {
-
-        var shadetree = this.sut.calculateSubtreeWithUsers("o=oubase,dc=example,dc=org", null);
-        Assertions.assertTrue(shadetree.isPresent());
-        var rootNode = shadetree.get().values().iterator().next();
-
-        var lhmobjectids = rootNode.flatMapLdapUserDTO();
-        Assertions.assertEquals(3, lhmobjectids.size());
     }
 
     @Test

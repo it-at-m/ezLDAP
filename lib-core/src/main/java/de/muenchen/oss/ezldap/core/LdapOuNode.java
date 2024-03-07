@@ -22,11 +22,12 @@
  */
 package de.muenchen.oss.ezldap.core;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Node class to create ldap shade tree representation
@@ -69,42 +70,6 @@ public class LdapOuNode {
         });
 
         return tree.toString();
-    }
-
-    /**
-     * Creates json representation of the subtree
-     *
-     * @return Json
-     */
-    public String toJson() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(this);
-    }
-
-    /**
-     * Creates a map with lhmObjectId and LdapUserDTO for easy finding and access of users contained in
-     * the subtree
-     *
-     * @return map
-     */
-    public Map<String, LdapUserDTO> flatMapLdapUserDTO() {
-        var map = new HashMap<String, LdapUserDTO>();
-        if (this.getUsers() != null)
-            this.getUsers().forEach(u -> map.put(u.getLhmObjectId(), u));
-
-        map.putAll(flatMapLdapUserDTO(this.getChildNodes()));
-        return map;
-    }
-
-    private Map<String, LdapUserDTO> flatMapLdapUserDTO(Map<String, LdapOuNode> subtree) {
-
-        var users = new HashMap<String, LdapUserDTO>();
-        subtree.forEach((key, node) -> {
-            if (node.getUsers() != null)
-                node.getUsers().forEach(u -> users.put(u.getLhmObjectId(), u));
-
-            users.putAll(flatMapLdapUserDTO(node.getChildNodes()));
-        });
-        return users;
     }
 
     /**
