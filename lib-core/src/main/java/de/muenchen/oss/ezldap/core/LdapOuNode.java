@@ -35,7 +35,6 @@ import java.util.TreeMap;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(callSuper = false, onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(callSuper = false)
 public class LdapOuNode {
 
@@ -51,11 +50,12 @@ public class LdapOuNode {
      *
      * @return String Representation
      */
-    public String toTree() {
-        return toTree("");
+    @Override
+    public String toString() {
+        return formatTree("");
     }
 
-    private String toTree(String tab) {
+    private String formatTree(String tab) {
 
         var tree = new StringBuilder();
         tree.append(tab + "***** New LDAP entry : " + getNode().getLhmOUShortname() + " " + getNode().getOu() + " *****" + System.lineSeparator());
@@ -66,7 +66,7 @@ public class LdapOuNode {
             getUsers().forEach(u -> tree.append(tab + u.toString() + System.lineSeparator()));
 
         getChildNodes().forEach((k, v) -> {
-            tree.append(v.toTree(tab + "     "));
+            tree.append(v.formatTree(tab + "     "));
         });
 
         return tree.toString();

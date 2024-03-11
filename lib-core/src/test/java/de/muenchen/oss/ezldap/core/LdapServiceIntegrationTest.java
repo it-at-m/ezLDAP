@@ -240,13 +240,13 @@ public class LdapServiceIntegrationTest {
     }
 
     @Test
-    void shade_tree_log() {
+    void shade_tree_override_toString() {
 
         var shadetree = this.sut.calculateSubtreeWithUsers("o=oubase,dc=example,dc=org", null);
         Assertions.assertTrue(shadetree.isPresent());
         var rootNode = shadetree.get().values().iterator().next();
 
-        var tree = rootNode.toTree();
+        var tree = rootNode.toString();
         Assertions.assertTrue(tree.contains("***** New LDAP entry : RBS-A-2 Abteilung 2 *****"));
 
     }
