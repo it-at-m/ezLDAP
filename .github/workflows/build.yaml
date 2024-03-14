@@ -35,7 +35,7 @@ jobs:
       - name: Build with Maven
         run: mvn -B verify -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN
       - name: JUnit Report Action
-        uses: mikepenz/action-junit-report@v4.1.0
+        uses: mikepenz/action-junit-report@v4.2.1
         if: success() || failure() # always run even if the previous step fails
         with:
           report_paths: "**/target/*-reports/TEST-*.xml"
