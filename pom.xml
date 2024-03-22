@@ -349,6 +349,7 @@
 						<groupId>org.sonatype.central</groupId>
 						<artifactId>central-publishing-maven-plugin</artifactId>
 						<configuration>
+							<autoPublish>true</autoPublish>
 							<tokenAuth>true</tokenAuth>
 							<deploymentName>${project.groupId}:${project.version}</deploymentName>
 						</configuration>
