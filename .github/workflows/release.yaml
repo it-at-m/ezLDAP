@@ -38,7 +38,7 @@ jobs:
           server-username: CENTRAL_USERNAME
           server-password: CENTRAL_PASSWORD
           gpg-private-key: ${{ secrets.gpg_private_key }}
-          gpg-passphrase: SIGN_KEY_PASS
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE 
 
       - name: Perform maven release
         run: >
@@ -48,7 +48,7 @@ jobs:
           -Dtag=${{ github.event.inputs.release-tag }} 
           -Darguments="-DskipTests"
         env:
-          SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.gpg_passphrase }}
           CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
           CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
 
