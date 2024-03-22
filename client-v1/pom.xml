@@ -33,7 +33,7 @@
 	</parent>
 
 	<artifactId>ezLDAP-client-v1</artifactId>
-	<name>ezLDAP :: client-v1</name>
+	<name>${project.groupId}:${project.artifactId}</name>
 
 	<dependencies>
 		<dependency>

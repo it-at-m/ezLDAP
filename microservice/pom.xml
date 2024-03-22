@@ -33,7 +33,7 @@
 	</parent>
 
 	<artifactId>ezLDAP-microservice</artifactId>
-	<name>ezLDAP :: microservice</name>
+	<name>${project.groupId}:${project.artifactId}</name>
 
 	<properties>
 		<skip.surefire.tests>${skipTests}</skip.surefire.tests>
