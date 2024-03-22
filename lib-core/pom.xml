@@ -31,7 +31,7 @@
 		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>ezLDAP-lib-core</artifactId>
-	<name>ezLDAP :: lib-core</name>
+	<name>${project.groupId}:${project.artifactId}</name>
 
 	<dependencies>
 

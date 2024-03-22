@@ -28,15 +28,15 @@ jobs:
       - name: Setup git user
         uses: fregante/setup-git-user@v2
 
-      - name: Set up JDK 17 and OSSRH auth / GPG signing
+      - name: Set up JDK 17 and central auth / GPG signing
         uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: "temurin"
           cache: "maven"
-          server-id: "ossrh"
-          server-username: OSSRH_USERNAME
-          server-password: OSSRH_PASSWORD
+          server-id: "central"
+          server-username: CENTRAL_USERNAME
+          server-password: CENTRAL_PASSWORD
           gpg-private-key: ${{ secrets.gpg_private_key }}
           gpg-passphrase: SIGN_KEY_PASS
 
@@ -49,8 +49,8 @@ jobs:
           -Darguments="-DskipTests"
         env:
           SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
-          OSSRH_USERNAME: ${{ secrets.nexus_username }}
-          OSSRH_PASSWORD: ${{ secrets.nexus_password }}
+          CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
+          CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
