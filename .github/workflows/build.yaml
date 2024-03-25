@@ -33,7 +33,7 @@ jobs:
           distribution: "temurin"
           cache: "maven"
       - name: Build with Maven
-        run: mvn -B verify -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN
+        run: mvn -B -ntp verify
       - name: JUnit Report Action
         uses: mikepenz/action-junit-report@v4.2.1
         if: success() || failure() # always run even if the previous step fails
