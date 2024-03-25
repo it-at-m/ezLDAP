@@ -34,7 +34,7 @@
 
 	<groupId>de.muenchen.oss.ezldap</groupId>
 	<artifactId>ezLDAP-parent</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>custom tailored REST API for read access to LDAP</description>
 	<url>https://github.com/it-at-m/ezLDAP</url>
@@ -69,7 +69,7 @@
 		<connection>scm:git:https://github.com/it-at-m/ezLDAP.git</connection>
 		<developerConnection>
 			scm:git:https://github.com/it-at-m/ezLDAP.git</developerConnection>
-		<tag>v1.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<dependencyManagement>
