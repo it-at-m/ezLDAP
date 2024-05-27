@@ -22,6 +22,7 @@
  */
 package de.muenchen.oss.ezldap.spring;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ldap.core.LdapTemplate;
@@ -44,7 +45,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LdapConfiguration {
 
     @Bean
-    LdapContextSource ldapContextSource(final EzLdapConfigurationProperties props) {
+    @ConditionalOnProperty(name = "app.auth-mode", havingValue = "none")
+    LdapContextSource ldapContextSourceDefault(final EzLdapConfigurationProperties props) {
         final LdapContextSource contextSource = new LdapContextSource();
         contextSource.setUrl(props.getLdap().getUrl());
         contextSource.setUserDn(props.getLdap().getUserDn());
@@ -63,7 +65,8 @@ public class LdapConfiguration {
     LdapService ldapService(final LdapTemplate template, final EzLdapConfigurationProperties props) {
         final LdapBaseUserAttributesMapper ldapBaseUserAttributesMapper = new LdapBaseUserAttributesMapper();
         final LdapOuAttributesMapper ldapOuAttributesMapper = new LdapOuAttributesMapper();
-        final LdapUserAttributesMapper ldapUserAttributesMapper = new LdapUserAttributesMapper(ldapBaseUserAttributesMapper);
+        final LdapUserAttributesMapper ldapUserAttributesMapper = new LdapUserAttributesMapper(
+                ldapBaseUserAttributesMapper);
         return new LdapService(template, ldapUserAttributesMapper, ldapBaseUserAttributesMapper, ldapOuAttributesMapper,
                 new DtoMapperImpl(), props.getLdap().getUserSearchBase(), props.getLdap().getOuSearchBase());
     }

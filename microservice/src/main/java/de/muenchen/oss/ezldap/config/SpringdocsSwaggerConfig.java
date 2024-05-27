@@ -49,11 +49,8 @@ public class SpringdocsSwaggerConfig {
 
     @Bean
     GroupedOpenApi publicApi(OpenApiCustomizer globalResponseCodeCustomiser) {
-        return GroupedOpenApi.builder()
-                .group("ezLDAP")
-                .packagesToScan("de.muenchen.oss.ezldap.spring.rest.v1")
-                .addOpenApiCustomizer(globalResponseCodeCustomiser)
-                .build();
+        return GroupedOpenApi.builder().group("ezLDAP").packagesToScan("de.muenchen.oss.ezldap.spring.rest.v1")
+                .addOpenApiCustomizer(globalResponseCodeCustomiser).build();
     }
 
     @Bean
@@ -71,12 +68,10 @@ public class SpringdocsSwaggerConfig {
                 apiResponses.addApiResponse("500", response500);
             }));
 
-            if (AuthMode.BASIC.equals(appProps.getAuthMode())) {
+            if (AuthMode.BASIC.equals(appProps.getAuthMode()) || AuthMode.LDAP.equals(appProps.getAuthMode())) {
                 openApi.addSecurityItem(new SecurityRequirement().addList("basicAuth"))
-                        .components(new Components()
-                                .addSecuritySchemes("basicAuth", new SecurityScheme()
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("basic")));
+                        .components(new Components().addSecuritySchemes("basicAuth",
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")));
             }
         };
     }

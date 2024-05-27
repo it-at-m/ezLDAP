@@ -22,13 +22,7 @@
  */
 package de.muenchen.oss.ezldap.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.annotation.Validated;
-
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -36,29 +30,18 @@ import lombok.Data;
  *
  */
 @Data
-@Configuration
-@ConfigurationProperties(prefix = "app")
-@Validated
-public class AppConfigurationProperties {
+public class LdapAuthConfigurationProperties {
 
-    @NotNull
-    private AuthMode authMode = AuthMode.NONE;
+    /**
+     * LDAP user search base for authentification.
+     */
+    @NotBlank
+    private String userSearchBase;
 
-    @NestedConfigurationProperty
-    @Valid
-    private BasicAuthConfigurationProperties basicAuth;
-
-    @NestedConfigurationProperty
-    @Valid
-    private LdapAuthConfigurationProperties ldapAuth;
-
-    public enum AuthMode {
-        NONE, BASIC, LDAP;
-    }
-
-    private String swaggerDescription;
-    private String swaggerContactName;
-    private String swaggerContactMail;
-    private String swaggerContactUrl;
+    /**
+     * LDAP user search filter for authentification.
+     */
+    @NotBlank
+    private String userSearchFilter = "(uid={0})";
 
 }

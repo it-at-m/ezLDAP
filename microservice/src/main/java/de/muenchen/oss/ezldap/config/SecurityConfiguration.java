@@ -22,15 +22,19 @@
  */
 package de.muenchen.oss.ezldap.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.ldap.authentication.SpringSecurityAuthenticationSource;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -49,22 +53,33 @@ import lombok.extern.slf4j.Slf4j;
 public class SecurityConfiguration {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, EzLdapConfigurationProperties configProps, AppConfigurationProperties appProps)
-            throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, EzLdapConfigurationProperties configProps,
+            AppConfigurationProperties appProps) throws Exception {
         if (AuthMode.NONE.equals(appProps.getAuthMode())) {
             log.info("Bootstrapping Spring Security filter chain for auth-mode 'none' ...");
-            http
-                    .authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
-            http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            http.authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
+            http.sessionManagement(
+                    sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        } else if (AuthMode.LDAP.equals(appProps.getAuthMode())) {
+            log.info("Bootstrapping Spring Security filter chain for auth-mode 'ldap' ...");
+            http.authorizeHttpRequests(authz -> {
+                authz.requestMatchers("/openapi/v3/**", "/swagger-ui/**").permitAll();
+                authz.requestMatchers("/actuator/prometheus", "/actuator/info", "/actuator/health/**").permitAll();
+                authz.anyRequest().authenticated();
+            });
+            http.sessionManagement(
+                    sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            //					sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
+            http.httpBasic(Customizer.withDefaults());
         } else {
             log.info("Bootstrapping Spring Security filter chain for auth-mode 'basic' ...");
-            http
-                    .authorizeHttpRequests(authz -> {
-                        authz.requestMatchers("/openapi/v3/**", "/swagger-ui/**").permitAll();
-                        authz.requestMatchers("/actuator/prometheus", "/actuator/info", "/actuator/health/**").permitAll();
-                        authz.anyRequest().authenticated();
-                    });
-            http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            http.authorizeHttpRequests(authz -> {
+                authz.requestMatchers("/openapi/v3/**", "/swagger-ui/**").permitAll();
+                authz.requestMatchers("/actuator/prometheus", "/actuator/info", "/actuator/health/**").permitAll();
+                authz.anyRequest().authenticated();
+            });
+            http.sessionManagement(
+                    sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
             http.httpBasic(Customizer.withDefaults());
         }
         return http.build();
@@ -73,8 +88,31 @@ public class SecurityConfiguration {
     @Bean
     @ConditionalOnProperty(name = "app.auth-mode", havingValue = "basic")
     InMemoryUserDetailsManager userDetailsService(AppConfigurationProperties appProps) {
-        UserDetails userDetails = User.withUsername(appProps.getBasicAuth().getUser()).password(appProps.getBasicAuth().getPassword()).roles("USER").build();
+        UserDetails userDetails = User.withUsername(appProps.getBasicAuth().getUser())
+                .password(appProps.getBasicAuth().getPassword()).roles("USER").build();
         return new InMemoryUserDetailsManager(userDetails);
+    }
+
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth, final EzLdapConfigurationProperties props,
+            final AppConfigurationProperties appProps) throws Exception {
+        if (appProps.getAuthMode().equals(AuthMode.LDAP)) {
+            auth.ldapAuthentication().userSearchBase(appProps.getLdapAuth().getUserSearchBase())
+                    .userSearchFilter(appProps.getLdapAuth().getUserSearchFilter())
+                    .groupSearchBase(props.getLdap().getOuSearchBase()).contextSource().url(props.getLdap().getUrl());
+            auth.eraseCredentials(false);
+        }
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "app.auth-mode", havingValue = "ldap")
+    LdapContextSource ldapContextSourcePassthrough(final EzLdapConfigurationProperties props) {
+        final LdapContextSource contextSource = new LdapContextSource();
+        contextSource.setUrl(props.getLdap().getUrl());
+        contextSource.setAuthenticationSource(new SpringSecurityAuthenticationSource());
+        log.info("Initiating LDAP context-source with url='{}' and SpringSecurityAuthenticationSource.",
+                props.getLdap().getUrl());
+        return contextSource;
     }
 
 }
