@@ -75,7 +75,7 @@ public class SecurityConfiguration {
             configureMatchers(http);
             http.sessionManagement(
                     sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-            http.addFilterBefore(new BasicAuthPassthroughFilter(authenticationManager, "/**"), AnonymousAuthenticationFilter.class);
+            http.addFilterBefore(new BasicAuthPassthroughFilter(authenticationManager, "/v1/**"), AnonymousAuthenticationFilter.class);
         } else {
             log.info("Bootstrapping Spring Security filter chain for auth-mode 'basic' ...");
             configureMatchers(http);

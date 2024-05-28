@@ -40,8 +40,6 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
-import lombok.extern.slf4j.Slf4j;
-
 @SpringBootTest(
         properties = {
                 "app.auth-mode=ldap",
@@ -49,7 +47,6 @@ import lombok.extern.slf4j.Slf4j;
                 "ezldap.ldap.user-search-base=dc=example,dc=org" },
         webEnvironment = WebEnvironment.RANDOM_PORT
 )
-@Slf4j
 class LdapAuthPassthroughTest {
 
     @Autowired
