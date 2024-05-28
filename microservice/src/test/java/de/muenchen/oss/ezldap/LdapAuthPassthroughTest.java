@@ -36,7 +36,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
@@ -46,8 +45,6 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest(
         properties = {
                 "app.auth-mode=ldap",
-                "app.ldap-auth.user-search-base=dc=example,dc=org",
-                "app.ldap-auth.user-search-filter=(cn={0})",
                 "ezldap.ldap.ou-search-base=dc=example,dc=org",
                 "ezldap.ldap.user-search-base=dc=example,dc=org" },
         webEnvironment = WebEnvironment.RANDOM_PORT
@@ -64,27 +61,8 @@ class LdapAuthPassthroughTest {
     @TestConfiguration(proxyBeanMethods = false)
     static class LdapAuthPassthroughConfig {
 
-        /**
-         * command: [--copy-service]
-         * volumes:
-         * -
-         * ./lib-core/src/test/resources/ldap/schema/lhm.schema:/container/service/slapd/assets/config/bootstrap/schema/lhm.schema
-         * -
-         * ./lib-core/src/test/resources/ldap/data:/container/service/slapd/assets/config/bootstrap/ldif/custom
-         * environment:
-         * - LDAP_ORGANISATION=Example Inc.
-         * - LDAP_DOMAIN=example.org
-         * - LDAP_READONLY_USER=true
-         * - LDAP_READONLY_USER_USERNAME=readonly
-         * - LDAP_READONLY_USER_PASSWORD=readonly
-         * 
-         * @param props
-         * @return
-         */
-
         @Bean
         public GenericContainer<?> ldapContainer(DynamicPropertyRegistry props) {
-            Slf4jLogConsumer logConsumer = new Slf4jLogConsumer(log);
             GenericContainer<?> ldapContainer = new GenericContainer<>(
                     DockerImageName.parse("osixia/openldap:1.5.0"))
                             .withExposedPorts(389)
@@ -114,9 +92,17 @@ class LdapAuthPassthroughTest {
     }
 
     @Test
-    void basic_auth_no_ldap_user() {
+    void basic_auth_invalid_dn_as_username() {
         ResponseEntity<String> responseEntity = testRestTemplate
-                .withBasicAuth("unknownUser", "unkownPassword")
+                .withBasicAuth("notAValidDn", "unkownPassword")
+                .getForEntity("http://localhost:" + webPort + "/v1/ldap/search/findByUidWildcard?uid=erika.%2A&size=10", String.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
+
+    @Test
+    void basic_auth_invalid_password() {
+        ResponseEntity<String> responseEntity = testRestTemplate
+                .withBasicAuth("cn=admin,dc=example,dc=org", "wrongPassword")
                 .getForEntity("http://localhost:" + webPort + "/v1/ldap/search/findByUidWildcard?uid=erika.%2A&size=10", String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
@@ -124,7 +110,7 @@ class LdapAuthPassthroughTest {
     @Test
     void basic_auth_with_ldap_ok() {
         ResponseEntity<String> responseEntity = testRestTemplate
-                .withBasicAuth("admin", "admin")
+                .withBasicAuth("cn=admin,dc=example,dc=org", "admin")
                 .getForEntity("http://localhost:" + webPort + "/v1/ldap/search/findByUidWildcard?uid=erika.%2A&size=10", String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }

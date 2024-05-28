@@ -48,10 +48,6 @@ public class AppConfigurationProperties {
     @Valid
     private BasicAuthConfigurationProperties basicAuth;
 
-    @NestedConfigurationProperty
-    @Valid
-    private LdapAuthConfigurationProperties ldapAuth;
-
     public enum AuthMode {
         NONE,
         LDAP,

@@ -22,23 +22,33 @@
  */
 package de.muenchen.oss.ezldap.config;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.ldap.core.AuthenticationSource;
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.ldap.authentication.SpringSecurityAuthenticationSource;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
 import de.muenchen.oss.ezldap.config.AppConfigurationProperties.AuthMode;
+import de.muenchen.oss.ezldap.security.BasicAuthPassthroughFilter;
 import de.muenchen.oss.ezldap.spring.props.EzLdapConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,7 +64,7 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, EzLdapConfigurationProperties configProps,
-            AppConfigurationProperties appProps) throws Exception {
+            AppConfigurationProperties appProps, @Autowired(required = false) AuthenticationManager authenticationManager) throws Exception {
         if (AuthMode.NONE.equals(appProps.getAuthMode())) {
             log.info("Bootstrapping Spring Security filter chain for auth-mode 'none' ...");
             http.authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
@@ -64,8 +74,8 @@ public class SecurityConfiguration {
             log.info("Bootstrapping Spring Security filter chain for auth-mode 'ldap' ...");
             configureMatchers(http);
             http.sessionManagement(
-                    sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
-            http.httpBasic(Customizer.withDefaults());
+                    sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            http.addFilterBefore(new BasicAuthPassthroughFilter(authenticationManager, "/**"), AnonymousAuthenticationFilter.class);
         } else {
             log.info("Bootstrapping Spring Security filter chain for auth-mode 'basic' ...");
             configureMatchers(http);
@@ -92,16 +102,24 @@ public class SecurityConfiguration {
         return new InMemoryUserDetailsManager(userDetails);
     }
 
-    @Autowired
-    public void configure(AuthenticationManagerBuilder auth, final EzLdapConfigurationProperties props,
-            final AppConfigurationProperties appProps) throws Exception {
-        if (appProps.getAuthMode().equals(AuthMode.LDAP)) {
-            auth.ldapAuthentication()
-                    .userSearchBase(appProps.getLdapAuth().getUserSearchBase())
-                    .userSearchFilter(appProps.getLdapAuth().getUserSearchFilter())
-                    .groupSearchBase(props.getLdap().getOuSearchBase()).contextSource().url(props.getLdap().getUrl());
-            auth.eraseCredentials(false);
-        }
+    @Bean
+    @ConditionalOnProperty(name = "app.auth-mode", havingValue = "ldap")
+    AuthenticationManager authenticationManager() {
+        ProviderManager providerManager = new ProviderManager(Collections.singletonList(new AuthenticationProvider() {
+
+            @Override
+            public boolean supports(Class<?> authentication) {
+                return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+            }
+
+            @Override
+            public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+                UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
+                return new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getCredentials(), Collections.emptyList());
+            }
+        }));
+        providerManager.setEraseCredentialsAfterAuthentication(false);
+        return providerManager;
     }
 
     @Bean(name = "ezldapQueryContextSource")
@@ -109,7 +127,20 @@ public class SecurityConfiguration {
     LdapContextSource ezldapQueryContextSource(final EzLdapConfigurationProperties props) {
         final LdapContextSource contextSource = new LdapContextSource();
         contextSource.setUrl(props.getLdap().getUrl());
-        contextSource.setAuthenticationSource(new SpringSecurityAuthenticationSource());
+        contextSource.setAuthenticationSource(new AuthenticationSource() {
+
+            @Override
+            public String getPrincipal() {
+                UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+                return auth.getPrincipal().toString();
+            }
+
+            @Override
+            public String getCredentials() {
+                UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+                return auth.getCredentials().toString();
+            }
+        });
         log.info(
                 "Initiating LDAP context-source with url='{}' and SpringSecurityAuthenticationSource for Web LDAP authentication credentials passthrough to LDAP queries.",
                 props.getLdap().getUrl());

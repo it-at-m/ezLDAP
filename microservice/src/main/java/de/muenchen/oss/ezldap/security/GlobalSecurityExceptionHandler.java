@@ -1,6 +1,6 @@
 /*
  * The MIT License
- * Copyright © 2023 Landeshauptstadt München | it@M
+ * Copyright © 2024 Landeshauptstadt München | it@M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,28 +20,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.oss.ezldap.config;
+package de.muenchen.oss.ezldap.security;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import javax.naming.AuthenticationException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * @author michael.prankl
- *
  */
-@Data
-public class LdapAuthConfigurationProperties {
+@ControllerAdvice
+public class GlobalSecurityExceptionHandler {
 
-    /**
-     * LDAP user search base for authentification.
-     */
-    @NotBlank
-    private String userSearchBase;
-
-    /**
-     * LDAP user search filter for authentification.
-     */
-    @NotBlank
-    private String userSearchFilter = "(uid={0})";
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
+        String message = ex.getMessage();
+        if (message.contains("error code 49") || message.contains("Invalid Credentials")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
 
 }
