@@ -62,27 +62,26 @@ public class SecurityConfiguration {
                     sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         } else if (AuthMode.LDAP.equals(appProps.getAuthMode())) {
             log.info("Bootstrapping Spring Security filter chain for auth-mode 'ldap' ...");
-            http.authorizeHttpRequests(authz -> {
-                authz.requestMatchers("/openapi/v3/**", "/swagger-ui/**").permitAll();
-                authz.requestMatchers("/actuator/prometheus", "/actuator/info", "/actuator/health/**").permitAll();
-                authz.anyRequest().authenticated();
-            });
+            configureMatchers(http);
             http.sessionManagement(
-                    sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-            //					sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
+                    sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
             http.httpBasic(Customizer.withDefaults());
         } else {
             log.info("Bootstrapping Spring Security filter chain for auth-mode 'basic' ...");
-            http.authorizeHttpRequests(authz -> {
-                authz.requestMatchers("/openapi/v3/**", "/swagger-ui/**").permitAll();
-                authz.requestMatchers("/actuator/prometheus", "/actuator/info", "/actuator/health/**").permitAll();
-                authz.anyRequest().authenticated();
-            });
+            configureMatchers(http);
             http.sessionManagement(
                     sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
             http.httpBasic(Customizer.withDefaults());
         }
         return http.build();
+    }
+
+    private void configureMatchers(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authz -> {
+            authz.requestMatchers("/openapi/v3/**", "/swagger-ui/**").permitAll();
+            authz.requestMatchers("/actuator/prometheus", "/actuator/info", "/actuator/health/**").permitAll();
+            authz.anyRequest().authenticated();
+        });
     }
 
     @Bean
@@ -97,20 +96,22 @@ public class SecurityConfiguration {
     public void configure(AuthenticationManagerBuilder auth, final EzLdapConfigurationProperties props,
             final AppConfigurationProperties appProps) throws Exception {
         if (appProps.getAuthMode().equals(AuthMode.LDAP)) {
-            auth.ldapAuthentication().userSearchBase(appProps.getLdapAuth().getUserSearchBase())
+            auth.ldapAuthentication()
+                    .userSearchBase(appProps.getLdapAuth().getUserSearchBase())
                     .userSearchFilter(appProps.getLdapAuth().getUserSearchFilter())
                     .groupSearchBase(props.getLdap().getOuSearchBase()).contextSource().url(props.getLdap().getUrl());
             auth.eraseCredentials(false);
         }
     }
 
-    @Bean
+    @Bean(name = "ezldapQueryContextSource")
     @ConditionalOnProperty(name = "app.auth-mode", havingValue = "ldap")
-    LdapContextSource ldapContextSourcePassthrough(final EzLdapConfigurationProperties props) {
+    LdapContextSource ezldapQueryContextSource(final EzLdapConfigurationProperties props) {
         final LdapContextSource contextSource = new LdapContextSource();
         contextSource.setUrl(props.getLdap().getUrl());
         contextSource.setAuthenticationSource(new SpringSecurityAuthenticationSource());
-        log.info("Initiating LDAP context-source with url='{}' and SpringSecurityAuthenticationSource.",
+        log.info(
+                "Initiating LDAP context-source with url='{}' and SpringSecurityAuthenticationSource for Web LDAP authentication credentials passthrough to LDAP queries.",
                 props.getLdap().getUrl());
         return contextSource;
     }

@@ -68,10 +68,15 @@ public class SpringdocsSwaggerConfig {
                 apiResponses.addApiResponse("500", response500);
             }));
 
-            if (AuthMode.BASIC.equals(appProps.getAuthMode()) || AuthMode.LDAP.equals(appProps.getAuthMode())) {
+            if (AuthMode.BASIC.equals(appProps.getAuthMode())) {
                 openApi.addSecurityItem(new SecurityRequirement().addList("basicAuth"))
                         .components(new Components().addSecuritySchemes("basicAuth",
                                 new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")));
+            }
+            if (AuthMode.LDAP.equals(appProps.getAuthMode())) {
+                openApi.addSecurityItem(new SecurityRequirement().addList("basicAuthLdap"))
+                        .components(new Components().addSecuritySchemes("basicAuthLdap",
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic").description("Authenticate using LDAP")));
             }
         };
     }
