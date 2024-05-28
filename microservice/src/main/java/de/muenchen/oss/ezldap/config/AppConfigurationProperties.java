@@ -53,7 +53,9 @@ public class AppConfigurationProperties {
     private LdapAuthConfigurationProperties ldapAuth;
 
     public enum AuthMode {
-        NONE, BASIC, LDAP;
+        NONE,
+        LDAP,
+        BASIC;
     }
 
     private String swaggerDescription;
