@@ -49,7 +49,8 @@ public class AppConfigurationProperties {
     private BasicAuthConfigurationProperties basicAuth;
 
     public enum AuthMode {
-        NONE, BASIC;
+        NONE,
+        BASIC;
     }
 
     private String swaggerDescription;
