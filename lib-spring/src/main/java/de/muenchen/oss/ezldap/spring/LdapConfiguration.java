@@ -22,6 +22,8 @@
  */
 package de.muenchen.oss.ezldap.spring;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ldap.core.LdapTemplate;
@@ -44,7 +46,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LdapConfiguration {
 
     @Bean
-    LdapContextSource ldapContextSource(final EzLdapConfigurationProperties props) {
+    @ConditionalOnMissingBean(name = "ezldapQueryContextSource")
+    LdapContextSource ezldapQueryContextSource(final EzLdapConfigurationProperties props) {
         final LdapContextSource contextSource = new LdapContextSource();
         contextSource.setUrl(props.getLdap().getUrl());
         contextSource.setUserDn(props.getLdap().getUserDn());
@@ -54,16 +57,17 @@ public class LdapConfiguration {
         return contextSource;
     }
 
-    @Bean
-    LdapTemplate ldapTemplate(final LdapContextSource ldapContextSource) {
+    @Bean("ezldapLdapTemplate")
+    LdapTemplate ezldapLdapTemplate(@Qualifier("ezldapQueryContextSource") final LdapContextSource ldapContextSource) {
         return new LdapTemplate(ldapContextSource);
     }
 
     @Bean
-    LdapService ldapService(final LdapTemplate template, final EzLdapConfigurationProperties props) {
+    LdapService ldapService(@Qualifier("ezldapLdapTemplate") final LdapTemplate template, final EzLdapConfigurationProperties props) {
         final LdapBaseUserAttributesMapper ldapBaseUserAttributesMapper = new LdapBaseUserAttributesMapper();
         final LdapOuAttributesMapper ldapOuAttributesMapper = new LdapOuAttributesMapper();
-        final LdapUserAttributesMapper ldapUserAttributesMapper = new LdapUserAttributesMapper(ldapBaseUserAttributesMapper);
+        final LdapUserAttributesMapper ldapUserAttributesMapper = new LdapUserAttributesMapper(
+                ldapBaseUserAttributesMapper);
         return new LdapService(template, ldapUserAttributesMapper, ldapBaseUserAttributesMapper, ldapOuAttributesMapper,
                 new DtoMapperImpl(), props.getLdap().getUserSearchBase(), props.getLdap().getOuSearchBase());
     }
