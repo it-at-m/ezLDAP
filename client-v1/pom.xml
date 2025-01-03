@@ -29,7 +29,7 @@
 	<parent>
 		<groupId>de.muenchen.oss.ezldap</groupId>
 		<artifactId>ezLDAP-parent</artifactId>
-		<version>1.1.0</version>
+		<version>1.1.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>ezLDAP-client-v1</artifactId>
