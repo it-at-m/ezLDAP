@@ -31,10 +31,10 @@ jobs:
       - name: Setup git user
         uses: fregante/setup-git-user@v2
 
-      - name: Set up JDK 17 and OSSRH auth / GPG signing
+      - name: Set up JDK and OSSRH auth / GPG signing
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 21
           distribution: "temurin"
           cache: "maven"
           server-id: "central"
