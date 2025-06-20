@@ -28,7 +28,7 @@
 	<parent>
 		<groupId>de.muenchen.oss.ezldap</groupId>
 		<artifactId>ezLDAP-parent</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.1.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>ezLDAP-lib-spring</artifactId>
 	<name>${project.groupId}:${project.artifactId}</name>
@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
 			<artifactId>swagger-annotations</artifactId>
-			<version>2.2.22</version>
+			<version>2.2.33</version>
 		</dependency>
 
 		<!-- Bean validation -->
