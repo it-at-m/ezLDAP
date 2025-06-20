@@ -34,7 +34,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertyRegistrar;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
@@ -59,8 +59,13 @@ class LdapAuthPassthroughTest {
     static class LdapAuthPassthroughConfig {
 
         @Bean
-        public GenericContainer<?> ldapContainer(DynamicPropertyRegistry props) {
-            GenericContainer<?> ldapContainer = new GenericContainer<>(
+        DynamicPropertyRegistrar containerPropsRegistrar(GenericContainer<?> ldapContainer) {
+            return registry -> registry.add("ezldap.ldap.url", () -> "ldap://localhost:" + ldapContainer.getMappedPort(389));
+        }
+
+        @Bean
+        GenericContainer<?> ldapContainer() {
+            return new GenericContainer<>(
                     DockerImageName.parse("osixia/openldap:1.5.0"))
                             .withExposedPorts(389)
                             .withCommand("--copy-service")
@@ -74,9 +79,6 @@ class LdapAuthPassthroughTest {
                             .withEnv("LDAP_READONLY_USER_USERNAME", "readonly")
                             .withEnv("LDAP_READONLY_USER_PASSWORD", "readonly")
                             .waitingFor(Wait.forLogMessage(".*slapd starting.*\n", 1));
-
-            props.add("ezldap.ldap.url", () -> "ldap://localhost:" + ldapContainer.getMappedPort(389));
-            return ldapContainer;
         }
 
     }
