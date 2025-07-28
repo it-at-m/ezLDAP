@@ -1,7 +1,8 @@
 name: scheduled image build
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1' # Every Monday at 00:00 UTC
 
 
 jobs:
@@ -13,8 +14,18 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v4
+
+      - name: Fetch latest tag matching vX.X.X
+        id: get_tag
+        run: |
+          git fetch --tags
+          latest_tag=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -n 1)
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+
+      - name: Check out latest tag
+        uses: actions/checkout@v4
         with:
-          ref: "v1.1.0"
+          ref: ${{ steps.get_tag.outputs.latest_tag }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -44,15 +55,19 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
+          flavor: |
+            latest=false
+            prefix=
+            suffix=
           tags: |
-            type=semver,pattern={{version}},value=v1.1.0
-            type=schedule,pattern={{date 'YYYYMMDD'}},prefix=1.1.0-
+            type=semver,pattern={{version}},value=${{ steps.get_tag.outputs.latest_tag }}
+            type=schedule,pattern={{date 'YYYYMMDD'}},prefix=${{ steps.get_tag.outputs.latest_tag }}-
 
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: ./microservice
-          push: false
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
