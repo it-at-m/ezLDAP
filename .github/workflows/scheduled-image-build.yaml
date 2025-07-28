@@ -16,6 +16,13 @@ jobs:
         with:
           ref: "v1.1.0"
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: "maven"
+
       - name: Perform maven build
         run: mvn -B -ntp package -DskipTests
 
