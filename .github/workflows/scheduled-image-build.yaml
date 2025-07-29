@@ -2,7 +2,7 @@ name: scheduled image build
 
 on:
   schedule:
-    - cron: '15 13 * * 2' # Every Tuesday at 13:15 UTC
+    - cron: '0 15 * * 1-5' # Every weekday at 15:00 UTC
 
 
 jobs:
