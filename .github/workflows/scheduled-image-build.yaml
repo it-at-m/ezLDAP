@@ -2,11 +2,11 @@ name: scheduled image build
 
 on:
   schedule:
-    - cron: '0 15 * * 1-5' # Every weekday at 15:00 UTC
+    - cron: '0 10 * * 2' # Every tuesday at 10:00 UTC
 
 
 jobs:
-  release:
+  build-and-push:
     runs-on: ubuntu-latest
     permissions:
       packages: write
