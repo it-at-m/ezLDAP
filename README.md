@@ -4,10 +4,13 @@
 
 ## Run
 
-To function properly, ezLDAP requires a directory schema with LHM customized attributes ([see example schema data](lib-core/src/test/resources/ldap)). To spin up such an environment, you can use the `docker-compose` file provided:
+To function properly, ezLDAP requires a directory schema with LHM customized attributes ([see example schema data](lib-core/src/test/resources/ldap)). To spin up such an environment, you can use the [Docker Compose file provided](docker-compose.yml):
 
 ```bash
-docker-compose up
+# using Docker
+docker compose up
+# using Podman
+podman compose up
 ```
 
 This spins up a openLDAP server with LHM schema extensions and some testdata on port `8389` and phpLDAPadmin on <http://localhost:8090>. You can use the [default admin credentials of osixia/openldap](https://github.com/osixia/docker-openldap) (User-DN `cn=admin,dc=example,dc=org`, Password `admin`) to connect.
