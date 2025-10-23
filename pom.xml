@@ -29,7 +29,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.6</version><!-- keep prop spring-boot.version in sync! -->
+		<version>3.5.7</version><!-- keep prop spring-boot.version in sync! -->
 	</parent>
 
 	<groupId>de.muenchen.oss.ezldap</groupId>
@@ -56,7 +56,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<spring-boot.version>3.5.6</spring-boot.version>
+		<spring-boot.version>3.5.7</spring-boot.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
 		<org.projectlombok.version>1.18.42</org.projectlombok.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
