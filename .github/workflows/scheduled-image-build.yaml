@@ -13,7 +13,7 @@ jobs:
       contents: write
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Fetch latest tag matching vX.X.X
         id: get_tag
@@ -23,7 +23,7 @@ jobs:
           echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
 
       - name: Check out latest tag
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.get_tag.outputs.latest_tag }}
 
