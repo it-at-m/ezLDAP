@@ -49,11 +49,8 @@ public class SpringdocsSwaggerConfig {
 
     @Bean
     GroupedOpenApi publicApi(OpenApiCustomizer globalResponseCodeCustomiser) {
-        return GroupedOpenApi.builder()
-                .group("ezLDAP")
-                .packagesToScan("de.muenchen.oss.ezldap.spring.rest.v1")
-                .addOpenApiCustomizer(globalResponseCodeCustomiser)
-                .build();
+        return GroupedOpenApi.builder().group("ezLDAP").packagesToScan("de.muenchen.oss.ezldap.spring.rest.v1")
+                .addOpenApiCustomizer(globalResponseCodeCustomiser).build();
     }
 
     @Bean
@@ -73,10 +70,13 @@ public class SpringdocsSwaggerConfig {
 
             if (AuthMode.BASIC.equals(appProps.getAuthMode())) {
                 openApi.addSecurityItem(new SecurityRequirement().addList("basicAuth"))
-                        .components(new Components()
-                                .addSecuritySchemes("basicAuth", new SecurityScheme()
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("basic")));
+                        .components(new Components().addSecuritySchemes("basicAuth",
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")));
+            }
+            if (AuthMode.LDAP.equals(appProps.getAuthMode())) {
+                openApi.addSecurityItem(new SecurityRequirement().addList("basicAuthLdap"))
+                        .components(new Components().addSecuritySchemes("basicAuthLdap",
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic").description("Authenticate using LDAP")));
             }
         };
     }

@@ -48,7 +48,7 @@ import de.muenchen.oss.ezldap.core.LdapUserDTO;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AppTest {
+class CorsConfigurationTest {
 
     @MockBean
     LdapService ldapService;
@@ -63,7 +63,7 @@ public class AppTest {
     MockMvc mockMvc;
 
     @Test
-    public void context_loads_and_cors_correct() throws Exception {
+    void context_loads_and_cors_correct() throws Exception {
         Mockito.when(ldapService.getPerson(Mockito.anyString()))
                 .thenReturn(Optional.of(new LdapUserDTO(new LdapBaseUserDTO())));
         mockMvc.perform(get("/v1/ldap/user/{lhmObjectId}", "111140670").header("Origin", "http://localhost:8081"))
