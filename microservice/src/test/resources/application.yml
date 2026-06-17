@@ -12,6 +12,7 @@ app:
 
 logging:
   level:
-    "[de.muenchen.itm]": DEBUG
+    "[de.muenchen.oss]": DEBUG
     "[org.springframework.security]": DEBUG
+    "[org.springframework.ldap]": DEBUG
 
