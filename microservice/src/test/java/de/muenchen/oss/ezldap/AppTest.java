@@ -31,11 +31,11 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import de.muenchen.oss.ezldap.core.LdapBaseUserDTO;
@@ -50,13 +50,13 @@ import de.muenchen.oss.ezldap.core.LdapUserDTO;
 @AutoConfigureMockMvc
 public class AppTest {
 
-    @MockBean
+    @MockitoBean
     LdapService ldapService;
 
-    @MockBean
+    @MockitoBean
     LdapTemplate ldapTemplate;
 
-    @MockBean
+    @MockitoBean
     LdapContextSource ldapContextSource;
 
     @Autowired
