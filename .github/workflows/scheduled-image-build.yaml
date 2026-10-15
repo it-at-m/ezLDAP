@@ -64,7 +64,7 @@ jobs:
             type=schedule,pattern={{date 'YYYYMMDD'}},prefix=${{ steps.get_tag.outputs.latest_tag }}-
 
       - name: Build and push image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./microservice
           push: true
